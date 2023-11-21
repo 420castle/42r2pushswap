@@ -6,16 +6,17 @@
 /*   By: marcofer <marcofer@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:02:03 by marcofer          #+#    #+#             */
-/*   Updated: 2023/06/26 13:06:29 by marcofer         ###   ########.fr       */
+/*   Updated: 2023/11/21 16:31:17 by marcofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
-	int	num;
-	int	neg;
+	long	num;
+	int		neg;
+	int		temp;
 
 	num = 0;
 	neg = 1;
@@ -29,7 +30,8 @@ int	ft_atoi(const char *str)
 	}
 	while (*str >= 48 && *str <= 57)
 	{
-		num = num * 10 + (*str - '0');
+		temp = *str - '0';
+		num = num * 10 + temp;
 		str++;
 	}
 	return (num * neg);
