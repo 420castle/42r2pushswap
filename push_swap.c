@@ -14,6 +14,7 @@
 #include "./utils/args_check.c"
 #include "./utils/arrays.c"
 #include "./utils/list.c"
+#include "./instructions/instructions1.c"
 
 #include <stdio.h>
 
@@ -23,9 +24,12 @@ int	push_swap(int **stack_int)
 	t_list	**stack_b;
 
 	stack_a = int_to_lst(stack_int);	
-	stack_b = (t_list **)malloc(sizeof(t_list));
-	*stack_b = NULL;
+	stack_b = (t_list **)calloc(1, sizeof(t_list));
 	lst_index(stack_a);
+	// swap(stack_a);
+	// swap(stack_b);
+	rotate(stack_a);
+	reverse(stack_a);
 	free_list(stack_a);
 	free_list(stack_b);
 	return (0);
@@ -41,31 +45,43 @@ int	main_test(int argc, char **argv)
 		ft_putstr_fd("Error\n", 1);
 		return (0);
 	}
-	stack_int = list_map(argv);
+	stack_int = list_map(argc, argv);
 	instructions = push_swap(stack_int);
 	free_array((void **)stack_int);
 	return (0);
 }
-/*
+
 int	main(void)
 {
+	
+	char	*argv[5];
+
+	argv[0] = "./a.out";
+	argv[1] = "1123";
+	argv[2] = "422";
+	argv[3] = "71";
+	argv[4] = "417";
+	main_test(5, argv);
+	
+	/*
 	char	*argv[2];
 
 	argv[0] = "2";
-	argv[1] = "2123 422 71 417 76 75";
-	// argv[2] = "13 2";
+	argv[1] = "1123 422 71 417 76 75";
 
-	main_test(2, argv);
+	main_test(2, argv);	
+	
+	*/
 	return (0);
 }
-*/
 
+/*
 int	main(int argc, char **argv)
 {
 	int	n;
 
 	printf("argc = %i\n", argc);
-	n = 1;
+	n = 0;
 	while (n < argc)
 	{
 		printf("argv[%i] = %s\n", n, argv[n]);
@@ -73,3 +89,4 @@ int	main(int argc, char **argv)
 	}	
 	return (0);
 }
+*/

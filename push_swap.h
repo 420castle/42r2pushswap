@@ -63,7 +63,7 @@ int		**str_to_int(char **list_str);
 void	msg_error(void);
 void	check_repeat(int **list_int);
 void	check_digit(char **list_str);
-int		**list_map(char **argv);
+int		**list_map(int argc, char **argv);
 int		push_swap(int **stack_int);
 
 #endif

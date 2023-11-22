@@ -82,16 +82,24 @@ void	check_int(char **list_str)
 	}
 }
 
-int	**list_map(char **argv)
+int	**list_map(int argc, char **argv)
 {
 	char	**list_str;
 	int		**list_int;
-
-	if (!argv[1])
-		msg_error();
-	list_str = ft_split(argv[1], ' ');
+	int		n;
+	
+	if (argc == 2)
+		list_str = ft_split(argv[1], ' ');
+	else
+	{
+		list_str = malloc(argc * sizeof(char *));
+		n = 0;
+		while (n++ < argc - 1)
+			list_str[n-1] = ft_strdup(argv[n]);
+		list_str[n-1] = NULL;
+	}	
 	if (!list_str)
-		msg_error();
+		msg_error();	
 	check_digit(list_str);
 	check_int(list_str);
 	list_int = str_to_int(list_str);
