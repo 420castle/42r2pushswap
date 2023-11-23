@@ -12,21 +12,36 @@
 
 #include "../push_swap.h"
 
-void	free_list(t_list **stack)
+// Assigns/Updates the position, direction and outside distance of every node
+void	lst_pos(t_list **stack)
 {
-	t_list	*head;
-	t_list	*tmp;
+	int		n;
+	t_list	*temp;
 
-	head = *stack;
-	while (head)
+	if (!stack)
+		return ;
+	n = 1;
+	temp = *stack;
+	while (temp)
 	{
-		tmp = head;
-		head = head->next;
-		free(tmp);
+		temp->pos = n;
+		temp->mov = -1;
+		if (ft_lstsize(*stack) == 1 || n <= ft_lstsize(*stack) / 2)
+		{
+			temp->dir = 1;
+			temp->out = n - 1;
+		}
+		else
+		{
+			temp->dir = -1;
+			temp->out = ft_lstsize(*stack) - n + 1;
+		}
+		temp = temp->next;
+		n++;
 	}
-	free(stack);
 }
 
+// Assigns an index to every node, by ascending order
 void	lst_index(t_list **stack)
 {
 	int		n;
@@ -52,6 +67,26 @@ void	lst_index(t_list **stack)
 	}
 }
 
+// Get the node of the stack with the least potential movements
+t_list	*lst_next_mov(t_list **stack)
+{
+	t_list	*next;
+	t_list	*temp;
+
+	if (!stack)
+		return (NULL);	
+	temp = *stack;
+	next = *stack;
+	while (temp)
+	{
+		if (temp->mov < next->mov)
+			next = temp;
+		temp = temp->next;
+	}	
+	return (next);
+}
+
+// Converts an array of integers to a list
 t_list	**int_to_lst(int **stack_int)
 {
 	t_list	**stack;
@@ -68,6 +103,23 @@ t_list	**int_to_lst(int **stack_int)
 		temp->index = -1;
 		ft_lstadd_back(stack, temp);
 		n++;
-	}	
+	}
+	lst_index(stack);
+	lst_pos(stack);
 	return (stack);
+}
+
+// Checks if the list is sorted
+int	lst_is_sorted(t_list **stack)
+{
+	t_list	*temp;
+
+	temp = *stack;
+	while (temp && temp->next)
+	{
+		if (temp->num > (temp->next)->num)
+			return (0);
+		temp = temp->next;
+	}
+	return (1);
 }

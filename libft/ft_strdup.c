@@ -6,14 +6,14 @@
 /*   By: marcofer <marcofer@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 15:22:14 by marcofer          #+#    #+#             */
-/*   Updated: 2023/06/26 13:55:40 by marcofer         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:02:40 by marcofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 char	*ft_strdup(const char *s1)
-{	
+{
 	char	*s2;
 	size_t	size;
 

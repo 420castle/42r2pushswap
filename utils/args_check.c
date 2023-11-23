@@ -12,12 +12,14 @@
 
 #include "../push_swap.h"
 
+// Prints the error message and terminates the program
 void	msg_error(void)
 {
 	ft_putstr_fd("Error\n", 1);
 	exit (0);
 }
 
+// Checks an array of integers for duplicates
 void	check_repeat(int **list_int)
 {
 	int	i;
@@ -40,6 +42,7 @@ void	check_repeat(int **list_int)
 	}
 }
 
+// Checks an array of strings for non-numerical values 
 void	check_digit(char **list_str)
 {
 	int	i;
@@ -64,6 +67,7 @@ void	check_digit(char **list_str)
 	}
 }
 
+// Checks an array of strings for numerical values larger than int
 void	check_int(char **list_str)
 {
 	int		i;
@@ -82,12 +86,15 @@ void	check_int(char **list_str)
 	}
 }
 
+/* Checks the arguments given to the program for errors and
+converts them into an integer array
+*/
 int	**list_map(int argc, char **argv)
 {
 	char	**list_str;
 	int		**list_int;
 	int		n;
-	
+
 	if (argc == 2)
 		list_str = ft_split(argv[1], ' ');
 	else
@@ -95,11 +102,11 @@ int	**list_map(int argc, char **argv)
 		list_str = malloc(argc * sizeof(char *));
 		n = 0;
 		while (n++ < argc - 1)
-			list_str[n-1] = ft_strdup(argv[n]);
-		list_str[n-1] = NULL;
-	}	
+			list_str[n - 1] = ft_strdup(argv[n]);
+		list_str[n - 1] = NULL;
+	}
 	if (!list_str)
-		msg_error();	
+		msg_error();
 	check_digit(list_str);
 	check_int(list_str);
 	list_int = str_to_int(list_str);

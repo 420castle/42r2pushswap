@@ -12,6 +12,7 @@
 
 #include "../push_swap.h"
 
+// Frees all elements of an array, including the pointer
 void	free_array(void **ptr)
 {
 	int	i;
@@ -25,6 +26,23 @@ void	free_array(void **ptr)
 	free(ptr);
 }
 
+// Frees the memory of all the nodes in a list
+void	free_list(t_list **stack)
+{
+	t_list	*head;
+	t_list	*tmp;
+
+	head = *stack;
+	while (head)
+	{
+		tmp = head;
+		head = head->next;
+		free(tmp);
+	}
+	free(stack);
+}
+
+// Converts an array of strings into an array of integers
 int	**str_to_int(char **list_str)
 {
 	int		**list_int;
@@ -44,7 +62,7 @@ int	**str_to_int(char **list_str)
 		{
 			free_array((void **)list_int);
 			return (NULL);
-		}			
+		}
 		*list_int[n] = ft_atoi(list_str[n]);
 		n++;
 	}
