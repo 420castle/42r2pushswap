@@ -20,19 +20,21 @@ int	node_calc_mov(t_list **stack_a, t_list **stack_b, t_list *a)
 {
 	t_list	*b;
 	int		mov;
+	int		check;
 
 	stack_a = stack_a;
-	mov = a->out;
+	mov = a->out + 1;
 	if (ft_lstsize(*stack_b) > 2)
 	{
 		b = *stack_b;
-		while (b->next && b->mov != -2)
+		check = 0;
+		while (b->next && check == 0)
 			if (!(a->index < b->index && a->index > (b->next)->index))
 				b = b->next;
 			else
-				b->mov = -2;
+				check = 1;
 		if (b->next)
-			mov = b->out;
+			mov = mov + b->out;
 	}
 	a->mov = mov;
 	return (mov);
@@ -41,15 +43,15 @@ int	node_calc_mov(t_list **stack_a, t_list **stack_b, t_list *a)
 // Updates stack_a and stack_b
 void	lst_update(t_list **stack_a, t_list **stack_b)
 {
-	t_list	*a;
+	t_list	*node;
 
 	lst_pos(stack_a);
 	lst_pos(stack_b);
-	a = *stack_a;
-	while (a)
+	node = *stack_a;
+	while (node)
 	{
-		node_calc_mov(stack_a, stack_b, a);
-		a = a->next;
+		node_calc_mov(stack_a, stack_b, node);
+		node = node->next;
 	}	
 }
 
