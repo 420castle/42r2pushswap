@@ -6,7 +6,7 @@
 /*   By: marcofer <marcofer@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 12:40:15 by adiaz-be          #+#    #+#             */
-/*   Updated: 2023/11/23 16:03:59 by marcofer         ###   ########.fr       */
+/*   Updated: 2023/11/28 12:39:18 by marcofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 typedef struct s_list
 {
+	int				max;
 	int				num;
 	int				index;
 	int				pos;

@@ -26,6 +26,7 @@ void	lst_pos(t_list **stack)
 	{
 		temp->pos = n;
 		temp->mov = -1;
+		temp->max = 0;
 		if (ft_lstsize(*stack) == 1 || n <= ft_lstsize(*stack) / 2 + 1)
 		{
 			temp->dir = 1;
@@ -68,13 +69,13 @@ void	lst_index(t_list **stack)
 }
 
 // Get the node of the stack with the least potential movements
-t_list	*lst_next_mov(t_list **stack)
+t_list	*lst_get_mov_min(t_list **stack)
 {
 	t_list	*next;
 	t_list	*temp;
 
 	if (!stack)
-		return (NULL);	
+		return (NULL);
 	temp = *stack;
 	next = *stack;
 	while (temp)
@@ -82,8 +83,26 @@ t_list	*lst_next_mov(t_list **stack)
 		if (temp->mov < next->mov)
 			next = temp;
 		temp = temp->next;
-	}	
+	}
 	return (next);
+}
+
+// Get the node of the stack with the highest index
+t_list	*lst_get_idx_max(t_list **stack)
+{
+	t_list	*temp;
+	t_list	*max;
+
+	temp = *stack;
+	max = *stack;
+	while (temp)
+	{
+		if (temp->num > max->num)
+			max = temp;
+		temp = temp->next;
+	}
+	max->max = 1;
+	return (max);
 }
 
 // Checks if the list is sorted

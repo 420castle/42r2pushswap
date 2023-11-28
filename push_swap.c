@@ -24,6 +24,42 @@
 
 #include <stdio.h>
 
+// Simple algorithm for stacks of size n < 3
+void	push_swap_simple(t_list **stack_a, t_list **stack_b, int *counter)
+{
+	if ((*stack_a)->index > ((*stack_a)->next)->index)
+		sa(stack_a, stack_b, counter);
+}
+
+// Sorts the elements in stack_a, using stack_b
+void	push_swap_sort(t_list **stack_a, t_list **stack_b, int *counter)
+{
+	t_list	*temp;
+
+	lst_update(stack_a, stack_b);
+	while ((*stack_a)->next)
+	{
+		lst_print(stack_a, stack_b);
+		temp = lst_get_mov_min(stack_a);
+		move_b(stack_a, stack_b, temp, counter);
+		lst_update(stack_a, stack_b);
+	}
+	lst_print(stack_a, stack_b);
+	sort_b(stack_a, stack_b, counter);
+	temp = *stack_a;
+	while (*stack_b)
+	{
+		pa(stack_a, stack_b, counter);
+		if (*stack_b)
+			if (temp->index < (*stack_a)->index
+				&& temp->index > (*stack_b)->index)
+				rra(stack_a, stack_b, counter);
+	}
+	if (temp->index < (*stack_a)->index)
+		rra(stack_a, stack_b, counter);
+	lst_print(stack_a, stack_b);
+}
+
 // Sorts an array of integers, using push/swap
 int	push_swap(int **stack_int)
 {
@@ -35,7 +71,7 @@ int	push_swap(int **stack_int)
 	stack_a = int_to_lst(stack_int);
 	stack_b = (t_list **)calloc(1, sizeof(t_list));
 	lst_update(stack_a, stack_b);
-	/*REMOVE*/	lst_print(stack_a, stack_b);
+	lst_print(stack_a, stack_b);
 	if (!lst_is_sorted(stack_a))
 	{
 		if (ft_lstsize(*stack_a) < 3)
@@ -48,14 +84,13 @@ int	push_swap(int **stack_int)
 	return (counter);
 }
 
-// int	main(int argc, char **argv)
-int	main_test(int argc, char **argv)
+// int	main_test(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	int	**stack_int;
 
 	if (argc < 2)
 	{
-		// ft_putstr_fd("Error\n", 1);
 		return (0);
 	}
 	stack_int = list_map(argc, argv);
@@ -63,19 +98,17 @@ int	main_test(int argc, char **argv)
 	free_array((void **)stack_int);
 	return (0);
 }
-
-
+/*
 int	main(void)
 {	
 	char	*argv[2];
 
-	argv[0] = "2";
-	// argv[1] = "23 24 25 30 1 2 7 8 9 15 16 6";
+	argv[0] = "push_swap";
+	argv[1] = "23 24 25 30 1 2 7 8 9 15 16 6";
 	// argv[1] = "30 1 2";
-	argv[1] = "184215527 -723350085 463740688 481839014 288763059 -278965354 -856382516 132818436 -875701148 984014284 659484719 173310553 -82124580 606214737 585400780 -707962174 -148952384 -589078778 -344633569 288202122";
 
 	main_test(2, argv);	
 	
 	
 	return (0);
-}
+}*/

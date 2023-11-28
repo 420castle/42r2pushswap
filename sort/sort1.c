@@ -16,28 +16,32 @@
 	Mov is the minimum number of instructions required to move an item
 	from stack_a to its correct position in stack_b
 */
-int	node_calc_mov(t_list **stack_a, t_list **stack_b, t_list *a)
+void	calc_mov(t_list **stack_a, t_list **stack_b, t_list *a)
 {
 	t_list	*b;
-	int		mov;
+	t_list	*b2;
 	int		check;
 
 	stack_a = stack_a;
-	mov = a->out + 1;
-	if (ft_lstsize(*stack_b) > 2)
+	a->mov = a->out + 1;
+	if (ft_lstsize(*stack_b) > 1)
 	{
 		b = *stack_b;
 		check = 0;
-		while (b->next && check == 0)
-			if (!(a->index < b->index && a->index > (b->next)->index))
-				b = b->next;
-			else
+		while (b && check == 0)
+		{
+			b2 = b->next;
+			if (!(b->next))
+				b2 = *stack_b;
+			if (a->index < b->index && a->index > b2->index)
 				check = 1;
-		if (b->next)
-			mov = mov + b->out;
+			b = b->next;
+		}
+		if (check == 0)
+			b = lst_get_idx_max(stack_b);
+		if (b)
+			a->mov = a->mov + b->out;
 	}
-	a->mov = mov;
-	return (mov);
 }
 
 // Updates stack_a and stack_b
@@ -50,9 +54,9 @@ void	lst_update(t_list **stack_a, t_list **stack_b)
 	node = *stack_a;
 	while (node)
 	{
-		node_calc_mov(stack_a, stack_b, node);
+		calc_mov(stack_a, stack_b, node);
 		node = node->next;
-	}	
+	}
 }
 
 // Moves a node to the top of the stack a
@@ -68,7 +72,7 @@ void	move_top_a(t_list **stack_a, t_list **stack_b, t_list *a, int *counter)
 		if (a->dir == -1)
 			rra(stack_a, stack_b, counter);
 		n++;
-	}	
+	}
 }
 
 // Moves a node to the top of the stack b
@@ -83,28 +87,35 @@ void	move_top_b(t_list **stack_a, t_list **stack_b, t_list *b, int *counter)
 			rb(stack_a, stack_b, counter);
 		if (b->dir == -1)
 			rrb(stack_a, stack_b, counter);
-		n++;	
-	}	
+		n++;
+	}
 }
 
 // Moves a node from stack_a to its correct position in stack_b 
 void	move_b(t_list **stack_a, t_list **stack_b, t_list *a, int *counter)
 {
-	t_list	*b;	
+	t_list	*b;
+	t_list	*b2;
+	int		check;
 
-	if (!a)
-		return ;
 	move_top_a(stack_a, stack_b, a, counter);
-	if (ft_lstsize(*stack_b) > 2)
+	if (ft_lstsize(*stack_b) > 1)
 	{
 		b = *stack_b;
-		while (b->next && b->mov != -2)
-			if (!(a->index < b->index && a->index > (b->next)->index))
-				b = b->next;
-			else
-				b->mov = -2;
-		if (b->next)
-			move_top_b(stack_a, stack_b, b->next, counter);
+		check = 0;
+		while (b && check == 0)
+		{
+			b2 = b->next;
+			if (!(b->next))
+				b2 = *stack_b;
+			if (a->index < b->index && a->index > b2->index)
+				check = 1;
+			b = b->next;
+		}
+		if (check == 0)
+			b = lst_get_idx_max(stack_b);
+		if (b)
+			move_top_b(stack_a, stack_b, b, counter);
 	}
 	pb(stack_a, stack_b, counter);
 }
