@@ -43,11 +43,20 @@ void	lst_print_idx(t_list **stack_a, t_list **stack_b)
 	}
 }
 
+/*
+// Prints the items of two stacks
+void	lst_print(t_list **stack_a, t_list **stack_b)
+{
+	// stack_a = stack_a;
+	// stack_b = stack_b;
+	lst_print_idx(stack_a, stack_b);
+	printf("\n");
+}
+*/
+
 // Prints the items of two stacks
 void	lst_print(t_list **stack_a, t_list **stack_b)
 {
 	stack_a = stack_a;
 	stack_b = stack_b;
-	lst_print_idx(stack_a, stack_b);
-	printf("\n");
 }

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "./utils/misc.c"
 #include "./utils/args_check.c"
 #include "./utils/list.c"
 #include "./utils/list_print.c"
@@ -20,7 +21,6 @@
 #include "./instructions/instructions3.c"
 #include "./sort/sort1.c"
 #include "./sort/sort2.c"
-// #include "./sort/sort.c"
 
 #include <stdio.h>
 
@@ -79,6 +79,8 @@ int	push_swap(int **stack_int)
 		else
 			push_swap_sort(stack_a, stack_b, &counter);
 	}
+	printf("\n%i\t", lst_is_sorted(stack_a));
+	printf("Size = %i\t Steps = %i\n", ft_lstsize(*stack_a), counter);
 	free_list(stack_a);
 	free_list(stack_b);
 	return (counter);
@@ -98,8 +100,8 @@ int	main(int argc, char **argv)
 	free_array((void **)stack_int);
 	return (0);
 }
-/*
-int	main(void)
+
+/*int	main(void)
 {	
 	char	*argv[2];
 
@@ -111,4 +113,5 @@ int	main(void)
 	
 	
 	return (0);
-}*/
+}
+*/

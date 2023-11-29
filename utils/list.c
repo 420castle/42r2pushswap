@@ -18,15 +18,11 @@ void	lst_pos(t_list **stack)
 	int		n;
 	t_list	*temp;
 
-	if (!stack)
-		return ;
 	n = 1;
 	temp = *stack;
 	while (temp)
 	{
 		temp->pos = n;
-		temp->mov = -1;
-		temp->max = 0;
 		if (ft_lstsize(*stack) == 1 || n <= ft_lstsize(*stack) / 2 + 1)
 		{
 			temp->dir = 1;
@@ -37,6 +33,10 @@ void	lst_pos(t_list **stack)
 			temp->dir = -1;
 			temp->out = ft_lstsize(*stack) - n + 1;
 		}
+		temp->pos_rev = ft_lstsize(*stack) - temp->pos + 1;
+		temp->mov_a = temp->out * temp->dir;
+		temp->mov_b = 0;
+		temp->mov = (temp->mov_a) * temp->dir + 1;
 		temp = temp->next;
 		n++;
 	}
@@ -101,7 +101,6 @@ t_list	*lst_get_idx_max(t_list **stack)
 			max = temp;
 		temp = temp->next;
 	}
-	max->max = 1;
 	return (max);
 }
 

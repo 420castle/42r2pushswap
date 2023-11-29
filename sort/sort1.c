@@ -12,18 +12,13 @@
 
 #include "../push_swap.h"
 
-/* Calculates mov for a given item of stack_a
-	Mov is the minimum number of instructions required to move an item
-	from stack_a to its correct position in stack_b
-*/
-void	calc_mov(t_list **stack_a, t_list **stack_b, t_list *a)
+/* Returns the position where a given node of stack_a should be in stack_b*/
+t_list	*lst_get_insert_b(t_list **stack_b, t_list *a)
 {
 	t_list	*b;
 	t_list	*b2;
 	int		check;
 
-	stack_a = stack_a;
-	a->mov = a->out + 1;
 	if (ft_lstsize(*stack_b) > 1)
 	{
 		b = *stack_b;
@@ -39,8 +34,39 @@ void	calc_mov(t_list **stack_a, t_list **stack_b, t_list *a)
 		}
 		if (check == 0)
 			b = lst_get_idx_max(stack_b);
-		if (b)
-			a->mov = a->mov + b->out;
+		if (!b)
+			b = *stack_b;
+		return (b);
+	}
+	return (NULL);
+}
+
+/* Calculates mov for a given item of stack_a
+	Mov is the minimum number of instructions required to move an item
+	from stack_a to its correct position in stack_b
+*/
+void	calc_mov(t_list **stack_b, t_list *a)
+{
+	t_list	*b;
+
+	b = lst_get_insert_b(stack_b, a);
+	if (b)
+	{
+		a->mov = a->out + b->out + 1;
+		a->mov_a = a->out * a->dir;
+		a->mov_b = b->out * b->dir;
+		if (ft_max(a->pos, b->pos) < a->mov)
+		{
+			a->mov = ft_max(a->pos, b->pos);
+			a->mov_a = a->pos - 1;
+			a->mov_b = b->pos - 1;
+		}
+		if (ft_max(a->pos_rev, b->pos_rev) < a->mov)
+		{
+			a->mov = ft_max(a->pos_rev, b->pos_rev) + 1;
+			a->mov_a = -a->pos_rev;
+			a->mov_b = -b->pos_rev;
+		}
 	}
 }
 
@@ -54,7 +80,7 @@ void	lst_update(t_list **stack_a, t_list **stack_b)
 	node = *stack_a;
 	while (node)
 	{
-		calc_mov(stack_a, stack_b, node);
+		calc_mov(stack_b, node);
 		node = node->next;
 	}
 }
@@ -80,6 +106,8 @@ void	move_top_b(t_list **stack_a, t_list **stack_b, t_list *b, int *counter)
 {
 	int	n;
 
+	if (!b)
+		return ;
 	n = 0;
 	while (n < b->out)
 	{
@@ -89,33 +117,4 @@ void	move_top_b(t_list **stack_a, t_list **stack_b, t_list *b, int *counter)
 			rrb(stack_a, stack_b, counter);
 		n++;
 	}
-}
-
-// Moves a node from stack_a to its correct position in stack_b 
-void	move_b(t_list **stack_a, t_list **stack_b, t_list *a, int *counter)
-{
-	t_list	*b;
-	t_list	*b2;
-	int		check;
-
-	move_top_a(stack_a, stack_b, a, counter);
-	if (ft_lstsize(*stack_b) > 1)
-	{
-		b = *stack_b;
-		check = 0;
-		while (b && check == 0)
-		{
-			b2 = b->next;
-			if (!(b->next))
-				b2 = *stack_b;
-			if (a->index < b->index && a->index > b2->index)
-				check = 1;
-			b = b->next;
-		}
-		if (check == 0)
-			b = lst_get_idx_max(stack_b);
-		if (b)
-			move_top_b(stack_a, stack_b, b, counter);
-	}
-	pb(stack_a, stack_b, counter);
 }

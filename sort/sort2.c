@@ -30,3 +30,71 @@ void	sort_b(t_list **stack_a, t_list **stack_b, int *counter)
 	}
 	move_top_b(stack_a, stack_b, max, counter);
 }
+
+/* Rotates stack_a and stack_b so that node *a goes to the top and is ready
+	to be pushed to the top of stack b
+*/
+void	rotate_top(t_list **stack_a, t_list **stack_b, t_list *a, int *counter)
+{
+	int	n;
+
+	n = 0;
+	while (n < ft_min(a->mov_a, a->mov_b))
+	{
+		rr(stack_a, stack_b, counter);
+		n++;
+	}
+	while (n < a->mov_a)
+	{
+		ra(stack_a, stack_b, counter);
+		n++;
+	}
+	while (n < a->mov_b)
+	{
+		rb(stack_a, stack_b, counter);
+		n++;
+	}
+}
+
+/* Reverse rotates stack_a and stack_b so that node *a goes to the top and
+	is ready to be pushed to the top of stack b
+*/
+void	reverse_top(t_list **stack_a, t_list **stack_b, t_list *a, int *counter)
+{
+	int	n;
+
+	n = 0;
+	while (n < ft_min(-a->mov_a, -a->mov_b))
+	{
+		rrr(stack_a, stack_b, counter);
+		n++;
+	}
+	while (n < -a->mov_a)
+	{
+		rra(stack_a, stack_b, counter);
+		n++;
+	}
+	while (n < -a->mov_b)
+	{
+		rrb(stack_a, stack_b, counter);
+		n++;
+	}
+}
+
+// Moves a node from stack_a to its correct position in stack_b 
+void	move_b(t_list **stack_a, t_list **stack_b, t_list *a, int *counter)
+{
+	t_list	*b;
+
+	b = lst_get_insert_b(stack_b, a);
+	if (is_positive(a->mov_a) != is_positive(a->mov_b))
+	{
+		move_top_a(stack_a, stack_b, a, counter);
+		move_top_b(stack_a, stack_b, b, counter);
+	}
+	if (is_positive(a->mov_a) && is_positive(a->mov_b))
+		rotate_top(stack_a, stack_b, a, counter);
+	if (!is_positive(a->mov_a) && !is_positive(a->mov_b))
+		reverse_top(stack_a, stack_b, a, counter);
+	pb(stack_a, stack_b, counter);
+}
