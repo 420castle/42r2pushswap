@@ -58,12 +58,64 @@
 # include "./libft/ft_tolower.c"
 # include "./libft/ft_toupper.c"
 
+// Push Swap
+void	push_swap_simple(t_list **stack_a, t_list **stack_b, int *counter);
+void	push_swap_sort(t_list **stack_a, t_list **stack_b, int *counter);
+int		push_swap(int **stack_int);
+
+// Utils - Misc
+int		is_positive(int num);
+int		ft_min(int num1, int num2);
+int		ft_max(int num1, int num2);
+
+// Utils - List
+void	lst_pos(t_list **stack);
+void	lst_index(t_list **stack);
+t_list	*lst_get_mov_min(t_list **stack);
+t_list	*lst_get_idx_max(t_list **stack);
+int		lst_is_sorted(t_list **stack);
+void	lst_print_idx(t_list **stack_a, t_list **stack_b);
+void	lst_print(t_list **stack_a, t_list **stack_b);
+
+// Utils - Arrays
 void	free_array(void **ptr);
+void	free_list(t_list **stack);
 int		**str_to_int(char **list_str);
+t_list	**int_to_lst(int **stack_int);
+
+// Utils - Arguments Check
 void	msg_error(void);
 void	check_repeat(int **list_int);
 void	check_digit(char **list_str);
+void	check_int(char **list_str);
 int		**list_map(int argc, char **argv);
-int		push_swap(int **stack_int);
+
+// Instructions
+int		swap(t_list **stack);
+int		push(t_list **stack_from, t_list **stack_to);
+int		rotate(t_list **stack);
+int		reverse(t_list **stack);
+void	sa(t_list **stack_a, t_list **stack_b, int *counter);
+void	sb(t_list **stack_a, t_list **stack_b, int *counter);
+void	ss(t_list **stack_a, t_list **stack_b, int *counter);
+void	pa(t_list **stack_a, t_list **stack_b, int *counter);
+void	pb(t_list **stack_a, t_list **stack_b, int *counter);
+void	ra(t_list **stack_a, t_list **stack_b, int *counter);
+void	rb(t_list **stack_a, t_list **stack_b, int *counter);
+void	rr(t_list **stack_a, t_list **stack_b, int *counter);
+void	rra(t_list **stack_a, t_list **stack_b, int *counter);
+void	rrb(t_list **stack_a, t_list **stack_b, int *counter);
+void	rrr(t_list **stack_a, t_list **stack_b, int *counter);
+
+// Sort
+t_list	*lst_get_insert_b(t_list **stack_b, t_list *a);
+void	calc_mov(t_list **stack_b, t_list *a);
+void	lst_update(t_list **stack_a, t_list **stack_b);
+void	move_top_a(t_list **stack_a, t_list **stack_b, t_list *a, int *counter);
+void	move_top_b(t_list **stack_a, t_list **stack_b, t_list *b, int *counter);
+void	sort_b(t_list **stack_a, t_list **stack_b, int *counter);
+void	rot_top(t_list **stack_a, t_list **stack_b, t_list *a, int *counter);
+void	rev_top(t_list **stack_a, t_list **stack_b, t_list *a, int *counter);
+void	move_b(t_list **stack_a, t_list **stack_b, t_list *a, int *counter);
 
 #endif

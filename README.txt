@@ -1,11 +1,21 @@
 ------- PUSH_SWAP -------
 
+TO - DO
+	- Make debugger work with makefile
+	- Create makefile
+	- Change printf function
+	- Create algorithm for size < 6
+	- Change algorithm to sort until stack_a has 3 elements
+	- Norminette and submit
+	- Add visualizer
+
 Lists for testing:
 	- 3
 		ARG="30 1 2"
 
 	- 20
 		ARG="16  3 14  5  4 19  6  7 13 17 15 18 12 20  8  2 11  9  1 10"
+		ARG="23 24 25 30 1 2 7 8 9 15 16 6"
 		ARG="23 24 25 30 1 2 7 8 9 15 16 6"
 	
 	- 100

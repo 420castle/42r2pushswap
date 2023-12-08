@@ -34,7 +34,7 @@ void	sort_b(t_list **stack_a, t_list **stack_b, int *counter)
 /* Rotates stack_a and stack_b so that node *a goes to the top and is ready
 	to be pushed to the top of stack b
 */
-void	rotate_top(t_list **stack_a, t_list **stack_b, t_list *a, int *counter)
+void	rot_top(t_list **stack_a, t_list **stack_b, t_list *a, int *counter)
 {
 	int	n;
 
@@ -59,7 +59,7 @@ void	rotate_top(t_list **stack_a, t_list **stack_b, t_list *a, int *counter)
 /* Reverse rotates stack_a and stack_b so that node *a goes to the top and
 	is ready to be pushed to the top of stack b
 */
-void	reverse_top(t_list **stack_a, t_list **stack_b, t_list *a, int *counter)
+void	rev_top(t_list **stack_a, t_list **stack_b, t_list *a, int *counter)
 {
 	int	n;
 
@@ -93,8 +93,8 @@ void	move_b(t_list **stack_a, t_list **stack_b, t_list *a, int *counter)
 		move_top_b(stack_a, stack_b, b, counter);
 	}
 	if (is_positive(a->mov_a) && is_positive(a->mov_b))
-		rotate_top(stack_a, stack_b, a, counter);
+		rot_top(stack_a, stack_b, a, counter);
 	if (!is_positive(a->mov_a) && !is_positive(a->mov_b))
-		reverse_top(stack_a, stack_b, a, counter);
+		rev_top(stack_a, stack_b, a, counter);
 	pb(stack_a, stack_b, counter);
 }
