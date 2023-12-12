@@ -43,20 +43,31 @@ void	lst_print_idx(t_list **stack_a, t_list **stack_b)
 	}
 }
 
-/*
 // Prints the items of two stacks
 void	lst_print(t_list **stack_a, t_list **stack_b)
 {
-	// stack_a = stack_a;
-	// stack_b = stack_b;
-	lst_print_idx(stack_a, stack_b);
-	printf("\n");
-}
-*/
+	int	i;
 
-// Prints the items of two stacks
-void	lst_print(t_list **stack_a, t_list **stack_b)
-{
 	stack_a = stack_a;
 	stack_b = stack_b;
+	i = 0;
+	if (i == 1)
+	{
+		lst_print_idx(stack_a, stack_b);
+		printf("\n");
+	}
+}
+
+// Prints the end result
+void	print_results(int i, t_list **stack_a, t_list **stack_b, int counter)
+{
+	if (i == 1)
+	{
+		printf("\n");
+		if (lst_is_sorted(stack_a) && !(*stack_b))
+			printf("OK");
+		else
+			printf("Not sorted :(");
+		printf("\tSize = %i\t Steps = %i\n", ft_lstsize(*stack_a), counter);
+	}
 }

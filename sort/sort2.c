@@ -98,3 +98,15 @@ void	move_b(t_list **stack_a, t_list **stack_b, t_list *a, int *counter)
 		rev_top(stack_a, stack_b, a, counter);
 	pb(stack_a, stack_b, counter);
 }
+
+// Moves the top node of stack_b to its correct position in stack_a
+void	move_a(t_list **stack_a, t_list **stack_b, int *counter)
+{
+	if (!(*stack_b))
+		return ;
+	while (!((*stack_b)->index > ft_lstlast(*stack_a)->index
+			|| (lst_is_sorted(stack_a)
+				&& (*stack_b)->index < (*stack_a)->index)))
+		rra(stack_a, stack_b, counter);
+	pa(stack_a, stack_b, counter);
+}

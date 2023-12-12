@@ -1,120 +1,111 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort1.c                                            :+:      :+:    :+:   */
+/*   sort_simple.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marcofer <marcofer@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/23 16:44:21 by marcofer          #+#    #+#             */
-/*   Updated: 2023/11/23 16:44:21 by marcofer         ###   ########.fr       */
+/*   Created: 2023/12/11 16:54:46 by marcofer          #+#    #+#             */
+/*   Updated: 2023/12/11 16:54:46 by marcofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-/* Returns the position where a given node of stack_a should be in stack_b*/
-t_list	*lst_get_insert_b(t_list **stack_b, t_list *a)
+// Get the node with the lowest index, higher than a given index
+t_list	*lst_get_min(t_list *stack, int idx)
 {
-	t_list	*b;
-	t_list	*b2;
-	int		check;
+	t_list	*min;
 
-	if (ft_lstsize(*stack_b) > 1)
+	min = NULL;
+	while (stack)
 	{
-		b = *stack_b;
-		check = 0;
-		while (b && check == 0)
+		if (stack->index > idx)
 		{
-			b2 = b->next;
-			if (!(b->next))
-				b2 = *stack_b;
-			if (a->index < b->index && a->index > b2->index)
-				check = 1;
-			b = b->next;
+			if (!min)
+				min = stack;
+			else if (stack->index < min->index)
+				min = stack;
 		}
-		if (check == 0)
-			b = lst_get_idx_max(stack_b);
-		if (!b)
-			b = *stack_b;
-		return (b);
+		stack = stack->next;
 	}
-	return (NULL);
+	return (min);
 }
 
-/* Calculates mov for a given item of stack_a
-	Mov is the minimum number of instructions required to move an item
-	from stack_a to its correct position in stack_b
-*/
-void	calc_mov(t_list **stack_b, t_list *a)
+// Simple algorithm for stacks of size n = 3
+void	sort_simple_3(t_list **stack_a, t_list **stack_b, int *counter)
 {
-	t_list	*b;
+	t_list	*a1;
+	t_list	*a2;
 
-	b = lst_get_insert_b(stack_b, a);
-	if (b)
+	a1 = lst_get_min(*stack_a, -1);
+	a2 = lst_get_min(*stack_a, a1->index);
+	if (*stack_a == a1 && (*stack_a)->next != a2)
 	{
-		a->mov = a->out + b->out + 1;
-		a->mov_a = a->out * a->dir;
-		a->mov_b = b->out * b->dir;
-		if (ft_max(a->pos, b->pos) < a->mov)
-		{
-			a->mov = ft_max(a->pos, b->pos);
-			a->mov_a = a->pos - 1;
-			a->mov_b = b->pos - 1;
-		}
-		if (ft_max(a->pos_rev, b->pos_rev) < a->mov)
-		{
-			a->mov = ft_max(a->pos_rev, b->pos_rev) + 1;
-			a->mov_a = -a->pos_rev;
-			a->mov_b = -b->pos_rev;
-		}
+		sa(stack_a, stack_b, counter);
+		ra(stack_a, stack_b, counter);
 	}
-}
-
-// Updates stack_a and stack_b
-void	lst_update(t_list **stack_a, t_list **stack_b)
-{
-	t_list	*node;
-
-	lst_pos(stack_a);
-	lst_pos(stack_b);
-	node = *stack_a;
-	while (node)
+	else if (*stack_a != a1 && *stack_a != a2)
 	{
-		calc_mov(stack_b, node);
-		node = node->next;
-	}
-}
-
-// Moves a node to the top of the stack a
-void	move_top_a(t_list **stack_a, t_list **stack_b, t_list *a, int *counter)
-{
-	int	n;
-
-	n = 0;
-	while (n < a->out)
-	{
-		if (a->dir == 1)
+		if ((*stack_a)->next == a1)
 			ra(stack_a, stack_b, counter);
-		if (a->dir == -1)
-			rra(stack_a, stack_b, counter);
-		n++;
+		else
+			sa(stack_a, stack_b, counter);
 	}
+	if (*stack_a == a2)
+	{
+		if ((*stack_a)->next == a1)
+			sa(stack_a, stack_b, counter);
+		else
+			rra(stack_a, stack_b, counter);
+	}
+	lst_pos(stack_a);
 }
 
-// Moves a node to the top of the stack b
-void	move_top_b(t_list **stack_a, t_list **stack_b, t_list *b, int *counter)
+// Simple algorithm for stacks of size n = 4
+void	sort_simple_4(t_list **stack_a, t_list **stack_b, int *counter)
 {
-	int	n;
+	t_list	*a1;
 
-	if (!b)
+	if (lst_is_sorted(stack_a))
 		return ;
-	n = 0;
-	while (n < b->out)
-	{
-		if (b->dir == 1)
-			rb(stack_a, stack_b, counter);
-		if (b->dir == -1)
-			rrb(stack_a, stack_b, counter);
-		n++;
-	}
+	lst_pos(stack_a);
+	a1 = lst_get_min(*stack_a, -1);
+	move_top_a(stack_a, stack_b, a1, counter);
+	pb(stack_a, stack_b, counter);
+	sort_simple_3(stack_a, stack_b, counter);
+	pa(stack_a, stack_b, counter);
+	lst_pos(stack_a);
+}
+
+// Simple algorithm for stacks of size n = 5
+void	sort_simple_5(t_list **stack_a, t_list **stack_b, int *counter)
+{
+	t_list	*a1;
+
+	if (lst_is_sorted(stack_a))
+		return ;
+	lst_pos(stack_a);
+	a1 = lst_get_min(*stack_a, -1);
+	move_top_a(stack_a, stack_b, a1, counter);
+	pb(stack_a, stack_b, counter);
+	sort_simple_4(stack_a, stack_b, counter);
+	pa(stack_a, stack_b, counter);
+	lst_pos(stack_a);
+}
+
+// Simple algorithm for stacks of size n < 6
+void	push_swap_simple(t_list **stack_a, t_list **stack_b, int *counter)
+{
+	if (lst_is_sorted(stack_a))
+		return ;
+	if (ft_lstsize(*stack_a) == 2)
+		sa(stack_a, stack_b, counter);
+	if (ft_lstsize(*stack_a) == 3)
+		sort_simple_3(stack_a, stack_b, counter);
+	if (ft_lstsize(*stack_a) == 4)
+		sort_simple_4(stack_a, stack_b, counter);
+	if (ft_lstsize(*stack_a) == 5)
+		sort_simple_5(stack_a, stack_b, counter);
+	lst_update(stack_a, stack_b);
 }
