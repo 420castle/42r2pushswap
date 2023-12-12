@@ -58,6 +58,28 @@
 // # include "./libft/ft_tolower.c"
 // # include "./libft/ft_toupper.c"
 
+# include "./printf/ft_printf.h"
+// # include "ft_aux_pf.c"
+// # include "ft_printf.c"
+// # include "ft_putchar_pf.c"
+// # include "ft_puthex_pf.c"
+// # include "ft_putnbr_pf.c"
+// # include "ft_putptr_pf.c"
+// # include "ft_putstr_pf.c"
+// # include "ft_putuint_pf.c"
+
+// #include "./utils/misc.c"
+// #include "./utils/args_check.c"
+// #include "./utils/list.c"
+// #include "./utils/list_print.c"
+// #include "./utils/arrays.c"
+// #include "./instructions/instructions1.c"
+// #include "./instructions/instructions2.c"
+// #include "./instructions/instructions3.c"
+// #include "./sort/sort0.c"
+// #include "./sort/sort1.c"
+// #include "./sort/sort2.c"
+
 // Push Swap
 void	push_swap_simple(t_list **stack_a, t_list **stack_b, int *counter);
 void	push_swap_sort(t_list **stack_a, t_list **stack_b, int *counter);

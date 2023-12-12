@@ -13,8 +13,8 @@
 NAME = push_swap
 CHECK = checker
 
-SRCS =  $(wildcard utils/*.c instructions/*.c sort/*.c) push_swap.c
-CHECK_SRCS = $(wildcard utils/*.c instructions/*.c)
+SRCS =  $(wildcard utils/*.c instructions/*.c printf/*.c sort/*.c) push_swap.c
+CHECK_SRCS = $(wildcard utils/*.c instructions/*.c printf/*.c)
 
 OBJS = ${SRCS:.c=.o}
 CHECK_OBJS = ${CHECK_SRCS:.c=.o}

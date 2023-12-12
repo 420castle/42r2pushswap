@@ -10,20 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+// #include <stdio.h>
 #include "push_swap.h"
-// #include "./utils/misc.c"
-// #include "./utils/args_check.c"
-// #include "./utils/list.c"
-// #include "./utils/list_print.c"
-// #include "./utils/arrays.c"
-// #include "./instructions/instructions1.c"
-// #include "./instructions/instructions2.c"
-// #include "./instructions/instructions3.c"
-// #include "./sort/sort0.c"
-// #include "./sort/sort1.c"
-// #include "./sort/sort2.c"
-
-#include <stdio.h>
 
 // Sorts the elements in stack_a, using stack_b
 void	push_swap_new(t_list **stack_a, t_list **stack_b, int *counter)
@@ -33,12 +21,11 @@ void	push_swap_new(t_list **stack_a, t_list **stack_b, int *counter)
 	lst_update(stack_a, stack_b);
 	while (ft_lstsize(*stack_a) > 5)
 	{
-		lst_print(stack_a, stack_b);
 		temp = lst_get_mov_min(stack_a);
 		move_b(stack_a, stack_b, temp, counter);
 		lst_update(stack_a, stack_b);
+		lst_print(stack_a, stack_b);
 	}
-	lst_print(stack_a, stack_b);
 	sort_b(stack_a, stack_b, counter);
 	push_swap_simple(stack_a, stack_b, counter);
 	lst_print(stack_a, stack_b);
