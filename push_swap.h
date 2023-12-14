@@ -14,6 +14,9 @@
 # define PUSH_SWAP_H
 
 # include "./libft/libft.h"
+# include "./printf/ft_printf.h"
+
+// // Libft
 // # include "./libft/ft_atoi.c"
 // # include "./libft/ft_bzero.c"
 // # include "./libft/ft_calloc.c"
@@ -58,27 +61,29 @@
 // # include "./libft/ft_tolower.c"
 // # include "./libft/ft_toupper.c"
 
-# include "./printf/ft_printf.h"
-// # include "ft_aux_pf.c"
-// # include "ft_printf.c"
-// # include "ft_putchar_pf.c"
-// # include "ft_puthex_pf.c"
-// # include "ft_putnbr_pf.c"
-// # include "ft_putptr_pf.c"
-// # include "ft_putstr_pf.c"
-// # include "ft_putuint_pf.c"
+// // Printf
+// # include "./printf/ft_aux_pf.c"
+// # include "./printf/ft_printf.c"
+// # include "./printf/ft_putchar_pf.c"
+// # include "./printf/ft_puthex_pf.c"
+// # include "./printf/ft_putnbr_pf.c"
+// # include "./printf/ft_putptr_pf.c"
+// # include "./printf/ft_putstr_pf.c"
+// # include "./printf/ft_putuint_pf.c"
 
-// #include "./utils/misc.c"
-// #include "./utils/args_check.c"
-// #include "./utils/list.c"
-// #include "./utils/list_print.c"
-// #include "./utils/arrays.c"
-// #include "./instructions/instructions1.c"
-// #include "./instructions/instructions2.c"
-// #include "./instructions/instructions3.c"
-// #include "./sort/sort0.c"
-// #include "./sort/sort1.c"
-// #include "./sort/sort2.c"
+// // Utils
+// # include "./utils/misc.c"
+// # include "./utils/list.c"
+// # include "./utils/arrays.c"
+// # include "./utils/args_check.c"
+// # include "./utils/list_print.c"
+// # include "./utils/get_next_line.c"
+// # include "./instructions/instructions1.c"
+// # include "./instructions/instructions2.c"
+// # include "./instructions/instructions3.c"
+// # include "./sort/sort0.c"
+// # include "./sort/sort1.c"
+// # include "./sort/sort2.c"
 
 // Push Swap
 void	push_swap_simple(t_list **stack_a, t_list **stack_b, int *counter);
@@ -90,6 +95,7 @@ int		push_swap(int **stack_int);
 int		is_positive(int num);
 int		ft_min(int num1, int num2);
 int		ft_max(int num1, int num2);
+int		ft_strcmp(const char *s1, const char *s2);
 
 // Utils - List
 void	lst_pos(t_list **stack);
@@ -113,6 +119,12 @@ void	check_repeat(int **list_int);
 void	check_digit(char **list_str);
 void	check_int(char **list_str);
 int		**list_map(int argc, char **argv);
+
+// Utils - Get Next Line
+char	*get_next_line(int fd, char **str);
+char	*ft_new_str(char *str);
+char	*ft_read_to_str(int fd, char *str, int buffer_size);
+char	*ft_get_line(char *str);
 
 // Instructions
 int		swap(t_list **stack);

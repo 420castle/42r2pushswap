@@ -6,7 +6,7 @@
 /*   By: marcofer <marcofer@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 15:22:14 by marcofer          #+#    #+#             */
-/*   Updated: 2023/06/26 13:55:36 by marcofer         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:52:12 by marcofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	char	find;
-	int		i;
+	char	*str;
 
-	find = (unsigned char)c;
-	i = 0;
-	while (s[i])
+	str = (char *)s;
+	if (!str)
+		return (0);
+	if (c == '\0')
+		return (str + ft_strlen(str));
+	while (*str != '\0')
 	{
-		if (s[i] == find)
-			return ((char *)s + i);
-		i++;
+		if (*str == c)
+			return (str);
+		str++;
 	}
-	if (s[i] == find)
-		return ((char *)s + i);
-	return (NULL);
+	return (0);
 }

@@ -2,19 +2,39 @@
 
 TO - DO
 	x Create makefile
-	- Change printf function
+	x Change printf function
 	x Create algorithm for size < 6
 	x Change algorithm to sort until stack_a has 3 elements
+	x Create checker
 	- Norminette and submit
 -------------------------------------------
 	- Add visualizer
 	- Make debugger work with makefile
 
-Commands for testing
+TEST - push_swap
+	https://www.random.org/sequences/
 	make all ; make clean
 	ARG="16 3 14 5 4 19 6 7 13 17 15 18 12 20 8 2 11 9 1 10"
+	ARG="0 9 1 8 2"
+		"[pb, ra, pb, ra, sa, ra, pa, pa]".
 	./push_swap $ARG | ./checker $ARG ; ./push_swap $ARG | wc -l
 	./push_swap $ARG | ./checker_linux $ARG ; ./push_swap $ARG | wc -l
+
+TEST - checker
+	ARG="0 9 1 8 2 7 3 6 4 5"
+		"[sa, pb, rrr]"
+		sa
+		pb
+		rrr
+	ARG="0 9 1 8 2"
+		pb
+		ra
+		pb
+		ra
+		sa
+		ra
+		pa
+		pa
 
 Lists for testing:
 	- 3

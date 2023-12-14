@@ -14,7 +14,7 @@ NAME = push_swap
 CHECK = checker
 
 SRCS =  $(wildcard utils/*.c instructions/*.c printf/*.c sort/*.c) push_swap.c
-CHECK_SRCS = $(wildcard utils/*.c instructions/*.c printf/*.c)
+CHECK_SRCS = $(wildcard utils/*.c instructions/*.c printf/*.c) checker.c
 
 OBJS = ${SRCS:.c=.o}
 CHECK_OBJS = ${CHECK_SRCS:.c=.o}
@@ -26,13 +26,14 @@ RM = rm -rf
 
 all: ${NAME}
 
-check: ${CHECK}
+bonus: ${CHECK}
 
 ${NAME}: ${OBJS}
 	@${MAKE} -C ./libft
 	@${CC} ${CFLAGS} ${OBJS} ./libft/libft.a -o ${NAME}
 
-${CHECK}: ${CHECK_OBJS} 
+${CHECK}: ${CHECK_OBJS}
+	@${MAKE} -C ./libft
 	@${CC} ${CFLAGS} ${CHECK_OBJS} ./libft/libft.a -o ${CHECK}
 
 clean: 

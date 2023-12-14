@@ -32,3 +32,35 @@ int	ft_max(int num1, int num2)
 		return (num1);
 	return (num2);
 }
+
+/*
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	int	diff;
+
+	// ft_printf("ft_strcmp:\n");
+	// printf("s1 = %s\n", s1);
+	// printf("s2 = %s\n", s2);
+	while (*s1 && *s1 == *s2)
+	{
+		// printf("*s1 = %c\n", *s1);
+		// printf("*s2 = %c\n", *s2);
+		s1++;
+		s2++;
+		diff = *s1 - *s2;
+	}
+	// printf("*s1 = %c\n", *s1);
+	// printf("*s2 = %c\n", *s2);
+	// printf("*diff = %i\n", diff);
+	return (diff);
+}
+*/
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	return ((unsigned char)*s1 - (unsigned char)*s2);
+}

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include <stdio.h>
 #include "push_swap.h"
 
 // Sorts the elements in stack_a, using stack_b
